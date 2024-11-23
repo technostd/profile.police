@@ -27,8 +27,8 @@ Global HIDDEN_NOW := False
 Hotkey_IniPath(DataPath)
 Hotkey_IniSection(HotkeySection)
 
-Global Version := 100
-Global GuiVersion := "1.0.0"
+Global Version := 009
+Global GuiVersion := "0.0.9"
 Global TextCreator = techno
 Global TextGroup = AHK Province
 Global TextFooter := "by techno (Artem_Zagoretskiy) | AHK Province ©2024"
