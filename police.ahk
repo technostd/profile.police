@@ -1,4 +1,7 @@
 ﻿#SingleInstance Force
+
+Global GitURL := "https://raw.githubusercontent.com/technostd/profile.police/refs/heads/main" 
+
 #NoEnv
 #Include %A_ScriptDir%\Hotkey.ahk
 FileEncoding UTF-8
@@ -36,7 +39,7 @@ Global SettingsFields := ["Special"]
 
 Global HotkeysEnabled := False
 
-Global HotkeyFields := {"00Knock": ["1", "Постучать в окно"], "01CivilianGreeting": ["1", "Приветствие гражд."], "02PoliceBadge": ["1", "Значок / нашивка"], "03ColleagueGreeting": ["1", "Воинское приветствие"],  "04LicenseOpen": ["1", "Удостоверение+"], "05LicenseClose": ["1", "Удостоверение-"], "06AskDocuments": ["1", "Попросить документы"], "06TakeDocuments": ["1", "Взять документы"], "07ReturnDocuments": ["1", "Вернуть документы"], "08PDAOn": ["1", "КПК+"], "09PDAOff": ["1", "КПК-"], "10Skan": ["1", "Пробить по базе"], "11Protocol": ["1", "Составить протокол"], "16Tsu": ["1", "Выписать штраф"], "18RadioOn": ["1", "Рация+"], "19RadioOff": ["1", "Рация-"], "20MegafonOn": ["1", "Мегафон+"], "21MegafonOff": ["1", "Мегафон-"], "22WalkWarn": ["1", "Пешее предупр."], "23SkipWarn": ["1", "Пропуск сл. авто"], "24Wanted": ["1", "/wanted"], "25FirstColumn": ["1", "Колонна 1"], "26SecondColumn": ["1", "Колонна 2"], "27ThirdColumn": ["1", "Колонна 3"], "28FirstWarn": ["1", "Предупреждение 1"], "29SecondWarn": ["1", "Предупреждение 2"], "30ThirdWarn": ["1", "Предупреждение 3"], "01AccMask": ["2", "Снять маску"], "01AccHat": ["2", "Снять голов. убор"], "01AccGlasses": ["2", "Снять очки"], "01AccHelmet": ["2", "Снять шлем"], "01BreakGlass": ["2", "Сломать стекло"], "02OpenDoor": ["2", "Открыть дверь"], "03PullCivilian": ["2", "Вытащить из машины"], "04Putpl": ["2", "Посадить в ПА"], "05Eject": ["2", "Высадить из ПА"], "06Photo": ["2", "Установить личность*"], "07Su": ["2", "Выдать розыск*"], "08ArrestCar": ["2", "Посадить в КПЗ"], "01Sos": ["3", "Код-0 /ro"], "02SosP": ["3", "Кнопка SOS в ПА"], "03SosS": ["3", "Кнопка SOS"], "04Protocol1": ["3", "Общее оформление 1"], "04Protocol2": ["3", "Общее оформление 2"], "04Protocol3": ["3", "Общее оформление 3"], "04ReadLection": ["3", "Прочитать выбр. лекцию"]}
+Global HotkeyFields := {"00Knock": ["1", "Постучать в окно"], "01CivilianGreeting": ["1", "Приветствие гражд."], "02PoliceBadge": ["1", "Значок / нашивка"], "03ColleagueGreeting": ["1", "Воинское приветствие"],  "04LicenseOpen": ["1", "Удостоверение+"], "05LicenseClose": ["1", "Удостоверение-"], "06AskDocuments": ["1", "Попросить документы"], "07TakeDocuments": ["1", "Взять документы"], "08ReturnDocuments": ["1", "Вернуть документы"], "09PDAOn": ["1", "КПК+"], "10PDAOff": ["1", "КПК-"], "11Skan": ["1", "Пробить по базе"], "12Protocol": ["1", "Составить протокол"], "13Tsu": ["1", "Выписать штраф"], "14RadioOn": ["1", "Рация+"], "15RadioOff": ["1", "Рация-"], "16MegafonOn": ["1", "Мегафон+"], "17MegafonOff": ["1", "Мегафон-"], "18WalkWarn": ["1", "Пешее предупр."], "19SkipWarn": ["1", "Пропуск сл. авто"], "20Wanted": ["1", "/wanted"], "21FirstColumn": ["1", "Колонна 1"], "21SecondColumn": ["1", "Колонна 2"], "23ThirdColumn": ["1", "Колонна 3"], "24FirstWarn": ["1", "Предупреждение 1"], "25SecondWarn": ["1", "Предупреждение 2"], "26ThirdWarn": ["1", "Предупреждение 3"], "01AccMask": ["2", "Снять маску"], "02AccHat": ["2", "Снять голов. убор"], "03AccGlasses": ["2", "Снять очки"], "04AccHelmet": ["2", "Снять шлем"], "05BreakGlass": ["2", "Сломать стекло"], "06OpenDoor": ["2", "Открыть дверь"], "07PullCivilian": ["2", "Вытащить из машины"], "08Putpl": ["2", "Посадить в ПА"], "09Eject": ["2", "Высадить из ПА"], "10Photo": ["2", "Установить личность*"], "11Su": ["2", "Выдать розыск*"], "12ArrestCar": ["2", "Посадить в КПЗ"], "13Sos": ["3", "Код-0 /ro"], "14SosP": ["3", "Кнопка SOS в ПА"], "15SosS": ["3", "Кнопка SOS"], "16Protocol1": ["3", "Общее оформление 1"], "17Protocol2": ["3", "Общее оформление 2"], "18Protocol3": ["3", "Общее оформление 3"]} ;, "04ReadLection": ["3", "Прочитать выбр. лекцию"]
 
 
 
@@ -176,7 +179,7 @@ CheckUpdate()
 {
 	FileDelete, %A_Temp%\update.ahk
 	Http := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-    Http.Open("GET", "https://github.com/sookolin/profile.tp/raw/main/version.profile.md")
+    Http.Open("GET", GitURL "/version.profile.md")
     Http.Send()
     ;MsgBox % Http.ResponseText
     Versions := StrSplit(Http.ResponseText, "`n")
@@ -214,7 +217,7 @@ CheckUpdate()
     Return
     
     Update:    
-    URL = https://raw.githubusercontent.com/sookolin/profile.tp/main/tp.ahk
+    URL := GitURL "/police.ahk"
     ;URL = https://my-files.su/Save/d6bcxl/ahk.tp.exe
 	URLDownloadToFile, %URL%, %A_Temp%\update.ahk
     ;MsgBox %A_Temp%\update.ahk
@@ -280,8 +283,8 @@ ParamCheck()
         }
  
         CheckAdmin()
-        ; CheckUpdate()
-       StartScript()
+        CheckUpdate()
+;       StartScript()
 }
 
 
@@ -470,9 +473,8 @@ SaveSettings()
 GetDefaultHotkeys()
 {
     ; DefaultHotkeysPath = %%\default.tp.prv
-    URLDownloadToFile https://raw.githubusercontent.com/sookolin/profile.tp/main/default.tp.prv, %DefaultHotkeysPath%
+    URLDownloadToFile %GitURL%/default.tp.prv, %DefaultHotkeysPath%
 	PID := DllCall("GetCurrentProcessId")
-    
     for Field, Value in HotkeyFields
     {
         Label := SubStr(Field, 3)
@@ -545,7 +547,7 @@ ShowMainGui()
 Gui 1:Destroy
 
 ; -------------------------------------------------- Icon ---------------------------------------------------
-;Menu, Tray, Icon, %A_WorkingDir%\ahk.ico
+Menu, Tray, Icon, %A_ScriptDir%\ahk.ico
 ;Menu Actions, 
 
 ;Gui 1:Menu, 
