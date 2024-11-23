@@ -203,13 +203,13 @@ CheckUpdate()
     Gui 4:Font, s12 c000000 Bold, Bahnschrift
     Gui 4:Add, Text, , Вышла новая версия! Обновить с %GuiVersion% на %GuiNewVersion%?
     Gui 4:Font, s16
-    Gui 4:Add, Link, xp yp+40, Список изменений (<a href="https://vk.com/@provinceahk-changelogtp">ChangeLog</a>):
+    Gui 4:Add, Link, xp yp+40, Список изменений: ; (<a href="https://vk.com/@provinceahk-changelogtp">ChangeLog</a>):
     Gui 4:Font, s12 
     for Num, Value in Versions
         if(Num>=3)
             Gui 4:Add, Text, xp yp+30, • %Value%
     Gui 4:Add, Button, xp yp+30 w145 gUpdate Default, Обновить
-    Gui 4:Add, Button, xp+150 yp w145 gSkipUpdate, Не обновлять
+    ;Gui 4:Add, Button, xp+150 yp w145 gSkipUpdate, Не обновлять
     Gui 4:Add, Button, xp+150 yp w145 gClose, Закрыть скрипт
     
 
@@ -217,9 +217,10 @@ CheckUpdate()
     Return
     
     Update:    
-    URL := GitURL "/police.ahk"
+;    URL := GitURL "/police.ahk"
     ;URL = https://my-files.su/Save/d6bcxl/ahk.tp.exe
-	URLDownloadToFile, %URL%, %A_Temp%\update.ahk
+	URLDownloadToFile, %GitURL%/police.ahk, %A_Temp%\update.ahk
+	URLDownloadToFile, %GitURL%/Hotkey.ahk, %A_Temp%\Hotkey.ahk
     ;MsgBox %A_Temp%\update.ahk
 	PID := DllCall("GetCurrentProcessId")
 
@@ -227,7 +228,7 @@ CheckUpdate()
     ExitApp
     
     SkipUpdate:
-    Gui 4:Destroy
+    Gui 4:Hide
     StartScript()
     Return
     
@@ -473,7 +474,8 @@ SaveSettings()
 GetDefaultHotkeys()
 {
     ; DefaultHotkeysPath = %%\default.tp.prv
-    URLDownloadToFile %GitURL%/default.tp.prv, %DefaultHotkeysPath%
+    URLDownloadToFile %GitURL%/default.police.prv, %DefaultHotkeysPath%
+    ; MsgBox Downloaded
 	PID := DllCall("GetCurrentProcessId")
     for Field, Value in HotkeyFields
     {
@@ -1230,6 +1232,7 @@ StartScript()
     GetSettings()
     
     ch := CheckHotkeys()
+    ; MsgBox % ch
     if(!ch)
         GetDefaultHotkeys()
 
