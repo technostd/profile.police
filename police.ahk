@@ -57,7 +57,7 @@ Global HotkeyValues := Object()
 ; Gender: пол
 
 
-Global InputType := True ; True - GUI, False - console
+Global InputType := False ; True - GUI, False - console
 
 Global Cities := "Мирный||Приволжск|Невский"
 Global Ranks := "рядовой||сержант|старшина|прапорщик|лейтенант|старший лейтенант|капитан|майор|подполковник|полковник|генерал-майор|генерал-лейтенант|генерал-полковник|генерал"
